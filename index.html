@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VPforSales.com — Coming Soon</title>
+<meta name="description" content="VPforSales.com is launching soon. A growth &amp; scale consultancy for professional services businesses.">
+<style>
+  :root{
+    --blue-deep:#0d366b; --blue-dark:#184f95; --blue:#2a78d6; --aqua:#1baf7a;
+    --hot:#ff5b5b; --gold:#f5b731; --ink:#0b0b0b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{
+    min-height:100%;
+    font-family:Arial,"Helvetica Neue",Helvetica,sans-serif;
+    background:radial-gradient(circle at 50% 30%, #163f7a 0%, #071c3d 65%, #050f22 100%);
+    color:#fff;
+  }
+  body{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow-x:hidden;
+    padding:32px 20px;
+  }
+  /* Fixed, viewport-clipped layer for decorative background blobs so they can
+     never inflate the document's scrollable height (a real bug we hit: an
+     absolutely-positioned blob poking out past the bottom of body was adding
+     ~200px of dead scroll space below the footer). */
+  .bg-decor{position:fixed;inset:0;overflow:hidden;z-index:0;pointer-events:none;}
+  .blob{position:absolute;border-radius:50%;filter:blur(2px);opacity:.28;}
+  .blob1{width:640px;height:640px;top:-180px;left:-160px;background:radial-gradient(circle,#2a78d6 0%,transparent 70%);}
+  .blob2{width:560px;height:560px;bottom:-200px;right:-180px;background:radial-gradient(circle,#1baf7a 0%,transparent 70%);}
+
+  .wrap{
+    position:relative;z-index:2;
+    width:100%;
+    max-width:640px;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .logo{
+    width:96px;height:96px;border-radius:24px;
+    background:linear-gradient(135deg,#5aa4ff,#0d366b);
+    display:flex;align-items:center;justify-content:center;
+    font-size:40px;font-weight:800;color:#fff;
+    box-shadow:0 20px 50px rgba(0,0,0,.45);
+    margin-bottom:26px;
+  }
+
+  .brand{
+    font-size:30px;font-weight:800;letter-spacing:-0.01em;color:#fff;
+  }
+  .tagline{
+    margin-top:8px;
+    font-size:15px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:#9be8c9;
+  }
+
+  .badge{
+    margin-top:38px;
+    display:inline-block;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.22);
+    color:#ffe28a;
+    font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    padding:9px 20px;border-radius:999px;
+  }
+
+  h1{
+    margin-top:26px;
+    font-size:clamp(26px, 4vw, 38px);
+    font-weight:800;
+    line-height:1.3;
+    letter-spacing:-0.01em;
+    text-shadow:0 6px 26px rgba(0,0,0,.35);
+    max-width:600px;
+  }
+
+  p.sub{
+    margin-top:20px;
+    font-size:18px;
+    line-height:1.55;
+    color:#cfe0f5;
+    max-width:520px;
+  }
+
+  form{
+    margin-top:38px;
+    width:100%;
+    max-width:400px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    align-items:stretch;
+  }
+  input[type="text"], input[type="email"], input[type="tel"]{
+    width:100%;
+    min-width:0;
+    padding:16px 22px;
+    border-radius:999px;
+    border:2px solid rgba(255,255,255,.25);
+    background:rgba(255,255,255,.08);
+    color:#fff;
+    font-size:16px;
+    outline:none;
+    transition:border-color .2s ease, background .2s ease;
+  }
+  input[type="text"]::placeholder, input[type="email"]::placeholder, input[type="tel"]::placeholder{
+    color:rgba(255,255,255,.55);
+  }
+  input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus{
+    border-color:var(--gold);background:rgba(255,255,255,.14);
+  }
+
+  button{
+    width:100%;
+    padding:16px 30px;
+    border:none;
+    border-radius:999px;
+    background:linear-gradient(135deg,#ffcf6b,var(--gold));
+    color:#1a1200;
+    font-size:16px;
+    font-weight:800;
+    cursor:pointer;
+    box-shadow:0 14px 30px rgba(245,183,49,.35);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  button:hover{transform:translateY(-1px);box-shadow:0 18px 36px rgba(245,183,49,.45);}
+  button:active{transform:translateY(0);}
+  button:disabled{opacity:.65;cursor:not-allowed;transform:none;box-shadow:none;}
+
+  .form-note{
+    margin-top:14px;
+    font-size:13px;
+    color:rgba(255,255,255,.5);
+  }
+
+  .success{
+    display:none;
+    margin-top:38px;
+    padding:18px 26px;
+    border-radius:16px;
+    background:rgba(27,175,122,.15);
+    border:1px solid rgba(27,175,122,.4);
+    color:#bdf3da;
+    font-size:16px;
+    font-weight:700;
+    max-width:440px;
+  }
+
+  .error{
+    display:none;
+    margin-top:16px;
+    padding:14px 22px;
+    border-radius:16px;
+    background:rgba(255,91,91,.12);
+    border:1px solid rgba(255,91,91,.4);
+    color:#ffd7d7;
+    font-size:14px;
+    font-weight:700;
+    max-width:400px;
+  }
+
+  .contact{
+    margin-top:44px;
+    font-size:15px;
+    color:rgba(255,255,255,.7);
+  }
+  .contact a{
+    color:#9be8c9;
+    font-weight:800;
+    text-decoration:none;
+    border-bottom:1px solid rgba(155,232,201,.4);
+  }
+  .contact a:hover{border-bottom-color:#9be8c9;}
+
+  footer{
+    position:relative;z-index:2;
+    margin-top:56px;
+    font-size:13px;
+    color:rgba(255,255,255,.4);
+    text-align:center;
+  }
+
+  @media (max-width:480px){
+    .logo{width:80px;height:80px;font-size:32px;border-radius:20px;}
+    .brand{font-size:24px;}
+  }
+</style>
+</head>
+<body>
+  <div class="bg-decor">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="logo">VP</div>
+    <div class="brand">VPforSales.com</div>
+    <div class="tagline">Growth &amp; Scale Consultancy</div>
+
+    <div class="badge">Launching Soon</div>
+
+    <h1>You've spent decades building your professional network, email listserve, website, LinkedIn, CRM, alumni contacts, personal contacts, and social media.</h1>
+    <p class="sub">
+      Why not just take what you already have and turn it into sales? We'll show you how to
+      design a campaign to close more deals from what you've built already, instead of
+      pouring money down the drain trying to meet new customers online.
+    </p>
+
+    <form id="notify-form">
+      <input type="hidden" name="access_key" value="94e720f0-3ad8-4311-9888-fec449ab0168">
+      <input type="hidden" name="subject" value="New VPforSales.com &quot;Coming Soon&quot; signup">
+      <input type="hidden" name="from_name" value="VPforSales.com Coming Soon Page">
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+
+      <input type="text" name="name" id="notify-name" placeholder="Your name" required aria-label="Name">
+      <input type="email" name="email" id="notify-email" placeholder="you@company.com" required aria-label="Email address">
+      <input type="tel" name="phone" id="notify-phone" placeholder="Phone" aria-label="Phone number">
+      <button type="submit">I'm in!</button>
+    </form>
+    <div class="form-note">We'll only reach out when we launch. No spam, ever.</div>
+
+    <div class="error" id="notify-error"></div>
+
+    <div class="success" id="notify-success">
+      Thanks &mdash; we'll let you know the moment we launch!
+    </div>
+
+    <div class="contact">
+      Questions in the meantime? Email us at
+      <a href="mailto:Hello@VPforBiz.com">Hello@VPforBiz.com</a>
+    </div>
+  </div>
+
+  <footer>&copy; <span id="year"></span> VPforSales.com. All rights reserved.</footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Submissions POST to Web3Forms (https://web3forms.com), which forwards
+    // them straight to the inbox tied to the access_key hidden field above.
+    // No backend of our own required.
+    var form = document.getElementById('notify-form');
+    var success = document.getElementById('notify-success');
+    var errorBox = document.getElementById('notify-error');
+    var formNote = document.querySelector('.form-note');
+    var submitBtn = form.querySelector('button[type="submit"]');
+    var originalBtnText = submitBtn.textContent;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      errorBox.style.display = 'none';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      var formData = new FormData(form);
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: formData
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (data.success) {
+            form.style.display = 'none';
+            formNote.style.display = 'none';
+            success.style.display = 'block';
+          } else {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
+            errorBox.textContent = data.message || "Something went wrong — please try again.";
+            errorBox.style.display = 'block';
+          }
+        })
+        .catch(function () {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalBtnText;
+          errorBox.textContent = 'Network error — please try again in a moment.';
+          errorBox.style.display = 'block';
+        });
+    });
+  </script>
+</body>
+</html>
